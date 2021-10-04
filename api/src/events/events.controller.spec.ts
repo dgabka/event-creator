@@ -35,8 +35,8 @@ describe('EventsController', () => {
       const dto: CreateEventDto = {
         firstName: 'Dawid',
         lastName: 'Gabka',
-        email: 'gabka.daw@gmail.com',
-        date: '123',
+        email: 'test@example.com',
+        date: new Date(),
       };
 
       const req = { user: { _id: '123' } };

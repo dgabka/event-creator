@@ -10,14 +10,12 @@ describe('UsersController', () => {
   const user: CreateUserDto = {
     firstName: 'Dawid',
     lastName: 'Gabka',
-    email: 'gabka.daw@gmail.com',
+    email: 'test@example.com',
     password: '123',
   };
 
   const mockService = {
     create: jest.fn((u) => u),
-    findOne: jest.fn((email) => ({ ...user, _id: '123' })),
-    findAll: jest.fn(() => [user]),
   };
 
   beforeEach(async () => {
@@ -39,28 +37,6 @@ describe('UsersController', () => {
   describe('create', () => {
     it('should create new user', async () => {
       await expect(controller.create(user)).resolves.toMatchObject(user);
-    });
-  });
-
-  describe('findByEmail', () => {
-    it('should return found user', async () => {
-      await expect(controller.findByEmail(user.email)).resolves.toMatchObject({
-        ...user,
-        _id: expect.any(String),
-      });
-    });
-
-    it('should throw if user was not found', async () => {
-      mockService.findOne.mockImplementationOnce((email) => null);
-      await expect(controller.findByEmail(user.email)).rejects.toThrowError(
-        NotFoundException,
-      );
-    });
-  });
-
-  describe('findAll', () => {
-    it('should return list of users', async () => {
-      await expect(controller.findAll()).resolves.toMatchObject([user]);
     });
   });
 });

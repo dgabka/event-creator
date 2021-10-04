@@ -30,8 +30,4 @@ export class UsersService {
   async findOne(email: string): Promise<User | undefined> {
     return this.userModel.findOne({ email }).exec();
   }
-
-  async findAll(): Promise<Array<User>> {
-    return this.userModel.find();
-  }
 }

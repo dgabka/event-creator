@@ -13,16 +13,12 @@ describe('UsersService', () => {
   const user = {
     firstName: 'Dawid',
     lastName: 'Gabka',
-    email: 'gabka.daw@gmail.com',
+    email: 'test@example.com',
     password: '123',
   };
 
   const mockModel = {
     create: jest.fn((user) => ({ ...user, _id: '123' })),
-    findOne: jest.fn((email) => ({
-      exec: jest.fn(() => user),
-    })),
-    find: jest.fn(() => [user]),
   };
 
   beforeEach(async () => {
@@ -65,18 +61,6 @@ describe('UsersService', () => {
       const err = new Error('mock');
       mockModel.create.mockRejectedValueOnce(err);
       await expect(service.create(user)).rejects.toThrowError(err);
-    });
-  });
-
-  describe('findOne', () => {
-    it('should return found user', async () => {
-      await expect(service.findOne(user.email)).resolves.toMatchObject(user);
-    });
-  });
-
-  describe('findAll', () => {
-    it('should return found users', async () => {
-      await expect(service.findAll()).resolves.toMatchObject([user]);
     });
   });
 });

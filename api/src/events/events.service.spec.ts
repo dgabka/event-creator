@@ -9,7 +9,7 @@ describe('EventsService', () => {
     _id: '123',
     firstName: 'Dawid',
     lastName: 'Gabka',
-    email: 'gabka.daw@gmail.com',
+    email: 'test@example.com',
     password: '123',
   };
 
@@ -42,8 +42,8 @@ describe('EventsService', () => {
       const dto: CreateEventDto = {
         firstName: 'Dawid',
         lastName: 'Gabka',
-        email: 'gabka.daw@gmail.com',
-        date: '123',
+        email: 'test@example.com',
+        date: new Date(),
       };
 
       expect(await service.create(dto, user)).toMatchObject({

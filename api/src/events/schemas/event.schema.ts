@@ -25,12 +25,16 @@ export class Event {
   })
   email: string;
 
-  @Prop()
-  date: string;
+  @Prop({
+    type: Date,
+    required: true,
+  })
+  date: Date;
 
   @Prop({
     type: mongooseSchema.Types.ObjectId,
     ref: 'User',
+    required: true,
   })
   @ExcludeProperty()
   user: User;

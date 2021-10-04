@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ExcludeProperty } from 'nestjs-mongoose-exclude';
 import { Document } from 'mongoose';
+import { ExcludeProperty } from 'nestjs-mongoose-exclude';
 
 export type UserDocument = User & Document;
 

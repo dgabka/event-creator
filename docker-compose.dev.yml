@@ -25,9 +25,8 @@ services:
     environment:
       NODE_ENV: dev
       CLIENT_ORIGIN: http://localhost
-      DB_USER: root
-      DB_PASSWORD: example
-      DB_URL: mongodb://root:example@mongodb_dev:27017/
+      DB_URI: mongodb://root:example@mongodb_dev:27017/
+      JWT_SECRET: supersecret123
     ports:
       - 3001:3000
     volumes:

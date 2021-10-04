@@ -1,11 +1,22 @@
 import { Transform } from 'class-transformer';
-import { IsDate, IsEmail, IsNotEmpty } from 'class-validator';
+import {
+  IsDate,
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateEventDto {
-  @IsNotEmpty()
+  @IsString()
+  @MinLength(1)
+  @MaxLength(32)
   readonly firstName: string;
 
-  @IsNotEmpty()
+  @IsString()
+  @MinLength(1)
+  @MaxLength(32)
   readonly lastName: string;
 
   @IsNotEmpty()
@@ -15,5 +26,5 @@ export class CreateEventDto {
   @Transform(({ value }) => new Date(value))
   @IsNotEmpty()
   @IsDate()
-  readonly date: string;
+  readonly date: Date;
 }

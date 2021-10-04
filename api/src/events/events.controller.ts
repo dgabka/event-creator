@@ -11,15 +11,21 @@ import { SanitizeMongooseModelInterceptor } from 'nestjs-mongoose-exclude';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateEventDto } from './dto/create-event.dto';
 import { EventsService } from './events.service';
+import { Event } from './schemas/event.schema';
 
-@UseInterceptors(new SanitizeMongooseModelInterceptor())
+@UseInterceptors(
+  new SanitizeMongooseModelInterceptor({
+    excludeMongooseId: false,
+    excludeMongooseV: true,
+  }),
+)
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventService: EventsService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findUsersEvents(@Request() req): Promise<Array<CreateEventDto>> {
+  async findUsersEvents(@Request() req): Promise<Array<Event>> {
     return this.eventService.find(req.user._id);
   }
 

@@ -39,7 +39,9 @@ describe('AuthService', () => {
   describe('validateUser', () => {
     it('should return null if user is not found', async () => {
       mockUserService.findOne.mockReturnValueOnce(null);
-      await expect(service.validateUser('', '')).resolves.toBeNull();
+      await expect(
+        service.validateUsersCredentials('', ''),
+      ).resolves.toBeNull();
     });
 
     it('should return null if passwords do not match', async () => {
@@ -48,7 +50,7 @@ describe('AuthService', () => {
         password: 'test',
       });
       await expect(
-        service.validateUser('email', 'invalidPass'),
+        service.validateUsersCredentials('email', 'invalidPass'),
       ).resolves.toBeNull();
     });
 
@@ -58,7 +60,7 @@ describe('AuthService', () => {
         password: 'test',
       });
       await expect(
-        service.validateUser('email', 'test'),
+        service.validateUsersCredentials('email', 'test'),
       ).resolves.toMatchObject({ email: 'email' });
     });
   });
@@ -74,7 +76,6 @@ describe('AuthService', () => {
         access_token: expect.any(String),
       });
       expect(mockJwtService.sign).toHaveBeenCalledWith({
-        email: user.email,
         sub: user._id,
       });
     });

@@ -1,21 +1,24 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { EventsModule } from './events/events.module';
 import { AuthModule } from './auth/auth.module';
+import { DatabaseModule } from './database/database.module';
+import { DatabaseService } from './database/database.service';
+import { EventsModule } from './events/events.module';
 import { UsersModule } from './users/users.module';
-
-console.log(process.env.DB_URL);
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync(process.env.DB_URL),
     EventsModule,
     AuthModule,
     UsersModule,
+    DatabaseModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DatabaseService],
 })
 export class AppModule {}
