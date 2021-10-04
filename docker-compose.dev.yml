@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  client_dev:
+    image: client
+    build:
+      context: client
+      target: dev
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: dev
+      REACT_APP_API_URL: http://localhost:3001
+    ports:
+      - 80:3000
+    volumes:
+      - ./client:/usr/app
+    depends_on:
+      - api_dev
+  api_dev:
+    image: api
+    build:
+      context: api
+      dockerfile: ./Dockerfile
+      target: dev
+    environment:
+      NODE_ENV: dev
+      CLIENT_ORIGIN: http://localhost
+      DB_USER: root
+      DB_PASSWORD: example
+      DB_URL: mongodb://root:example@mongodb_dev:27017/
+    ports:
+      - 3001:3000
+    volumes:
+      - ./api/src:/usr/app/src
+      - ./api/test:/usr/app/test
+    depends_on:
+      - mongodb_dev
+  mongodb_dev:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
