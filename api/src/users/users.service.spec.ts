@@ -1,12 +1,12 @@
-jest.mock('bcrypt', () => ({
-  hash: jest.fn(() => 'pswdhash'),
-  genSalt: jest.fn(),
-}));
-
 import { ConflictException } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
+
+jest.mock('bcrypt', () => ({
+  hash: jest.fn(() => 'pswdhash'),
+  genSalt: jest.fn(),
+}));
 
 describe('UsersService', () => {
   let service: UsersService;

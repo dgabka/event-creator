@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-  Post,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { SanitizeMongooseModelInterceptor } from 'nestjs-mongoose-exclude';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';

@@ -14,7 +14,6 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      errorHttpStatusCode: 400,
     }),
   );
   await app.listen(3000);
